@@ -69,8 +69,8 @@ app.get('/news', (req, res) => {
 app.get('/news/:newspaperId', (req, res) => {
     const newspaperId = req.params.newspaperId
 
-    const newspaperAddress = newspapers.filter(newspaper => newspapers.name == newspaperId)[0].address
-    const newspaperBase = newspapers.filter(newspaper => newspapers.name == newspaperId)[0].base
+    const newspaperAddress = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].address
+    const newspaperBase = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].base
 
     axios.get(newspaperAddress).then(response => {
         const pageHTML = response.data
