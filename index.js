@@ -45,7 +45,7 @@ newspaper.forEach(newspaper => {
         const pageHTML = response.data
         const $ = cheerio.load(pageHTML)
 
-        // Look for elements with an a tag that contains "Ukraine"
+        // Look for elements that contain word "Ukraine"
         // Grab the title and the url, push this as an object into our articles array
         $('a:contains("Ukraine")', pageHTML).each(function () {
             const title = $(this).text()
@@ -58,5 +58,10 @@ newspaper.forEach(newspaper => {
             })
         })
     })
+})
+
+// Endpoint to collect responses
+app.get('/news', (req, res) => {
+    res.json(articles)
 })
  
