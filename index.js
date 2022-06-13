@@ -34,4 +34,29 @@ const newspapers = [
 
 
 ]
+
+const articles = []
+
+newspaper.forEach(newspaper => {
+
+    // Visit the address using axios
+    // Then save this response and pass this HTML into cheerio
+    axios.get(newspaper.address).then(response => {
+        const pageHTML = response.data
+        const $ = cheerio.load(pageHTML)
+
+        // Look for elements with an a tag that contains "Ukraine"
+        // Grab the title and the url, push this as an object into our articles array
+        $('a:contains("Ukraine")', pageHTML).each(function () {
+            const title = $(this).text()
+            const url = $(this).attr('href')
+
+            articles.push({
+                title,
+                url: newspaper.baseURL + url,
+                source: newspaper.name
+            })
+        })
+    })
+})
  
