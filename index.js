@@ -72,20 +72,22 @@ app.get('/news/:newspaperId', (req, res) => {
     const newspaperAddress = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].address
     const newspaperBase = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].base
 
-    axios.get(newspaperAddress).then(response => {
-        const pageHTML = response.data
-        const $ = cheerio.load(pageHTML)
-        const specificArticles = []
+    
+    axios.get(newspaperAddress)
+        .then(response => {
+            const pageHTML= response.data
+            const $ = cheerio.load(pageHTML)
+            const specificArticles = []
 
-        $('a:contains("Ukraine")', pageHTML).each(function () {
-            const title =$(this).text()
-            const url = $(this).attr('href')
-            specificArticles.push({
-                title, 
-                url: newspaperBase + url,
-                source: newspaperId
+            $('a:contains("Ukraine")', pageHTML).each(function () {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                specificArticles.push({
+                    title,
+                    url: newspaperBase + url,
+                    source: newspaperId
+                })
             })
-        })
-        res.json(specificArticles)
-    }).catch(err => console.log(err))
+            res.json(specificArticles)
+        }).catch(err => console.log(err))
 })
