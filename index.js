@@ -37,7 +37,7 @@ const newspapers = [
 
 const articles = []
 
-newspaper.forEach(newspaper => {
+newspapers.forEach(newspaper => {
 
     // Visit the address using axios
     // Then save this response and pass this HTML into cheerio
