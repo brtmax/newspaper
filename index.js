@@ -32,4 +32,6 @@ const newspapers = [
         baseURL: ''
     }
 
+
 ]
+ 
